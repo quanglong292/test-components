@@ -15,14 +15,28 @@ import {
 dayjs.extend(dayLocaleData);
 
 interface CCalendarProps {
-  value?: { date: string }[];
+  values?: { date: string }[];
+  value?: Dayjs | null;
   color?: string;
   onOk?: () => void;
   onCancel?: () => void;
+  onChange?: (e: Dayjs) => void;
+  open: boolean;
 }
 
 const CCalendar = (props: CCalendarProps) => {
-  const { value = [], color = "cornflowerblue" } = props;
+  const {
+    value,
+    values = [],
+    color = "cornflowerblue",
+    open,
+    onChange,
+    onOk,
+    onCancel,
+  } = props;
+
+  if (!open) return <></>;
+
   const { token } = theme.useToken();
   const [currentDate, setCurrentDate] = useState<Dayjs>(dayjs());
   const [calendarType, setCalendarType] = useState<"month" | "year">("month");
@@ -41,7 +55,7 @@ const CCalendar = (props: CCalendarProps) => {
       const validHighlights = [
         dayjs().format("YYYY-MM-DD"),
         currentDateFormated,
-        ...value.map((i) => i.date),
+        ...values.map((i) => i.date),
       ];
 
       for (const item of cells) {
@@ -56,7 +70,7 @@ const CCalendar = (props: CCalendarProps) => {
         }
 
         if (bgColor === color && currentDateFormated === itemValue) {
-            // @ts-ignore
+          // @ts-ignore
           item.children[0].style.backgroundColor = "orangered";
         }
       }
@@ -64,7 +78,7 @@ const CCalendar = (props: CCalendarProps) => {
   };
 
   const handleSelectDate = (
-    value: CCalendarProps["value"],
+    value: CCalendarProps["values"],
     currentDate: Dayjs
   ) => {
     if (!value?.length) return;
@@ -85,11 +99,11 @@ const CCalendar = (props: CCalendarProps) => {
   };
 
   useLayoutEffect(() => {
-    handleSelectDate(value, currentDate);
-  }, [currentDate, value]);
+    handleSelectDate(values, currentDate);
+  }, [currentDate, values]);
 
   return (
-    <div className="ccalendar" style={wrapperStyle}>
+    <div id="ccalendar" className="ccalendar" style={wrapperStyle}>
       <Calendar
         fullscreen={false}
         headerRender={({ value, type, onChange, onTypeChange }) => {
@@ -146,7 +160,8 @@ const CCalendar = (props: CCalendarProps) => {
             <div style={{ padding: 8 }}>
               <section className="header-wrapper">
                 <div
-                  onClick={() => {
+                  onClick={(e) => {
+                    e.stopPropagation();
                     if (type === "month") onTypeChange("year");
                   }}
                   className="date"
@@ -201,18 +216,34 @@ const CCalendar = (props: CCalendarProps) => {
           const isChangeYear = e.diff(currentDate, "year");
 
           setCurrentDate(e);
+          if (onChange) onChange(e);
           if (calendarType === "year" && !isChangeYear) {
             setCalendarType("month");
           }
         }}
+        value={value || dayjs()}
       />
       <section className="footer">
         <div className="picked-date">
           {dayjs(currentDate).format("DD/MM/YYYY")}
         </div>
         <div>
-          <Button type="text">Cancel</Button>
-          <Button type="text">Ok</Button>
+          <Button
+            onClick={() => {
+              if (onOk) onOk();
+            }}
+            type="text"
+          >
+            Cancel
+          </Button>
+          <Button
+            onClick={() => {
+              if (onCancel) onCancel();
+            }}
+            type="text"
+          >
+            Ok
+          </Button>
         </div>
       </section>
     </div>

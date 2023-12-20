@@ -1,0 +1,13 @@
+.ant-picker-dropdown {
+  display: none;
+}
+
+.cdate-picker-wrapper {
+    position: relative;
+}
+
+.cdate-picker-wrapper .ccalendar {
+    position: absolute;
+    left: 0;
+    top: 100%;
+}

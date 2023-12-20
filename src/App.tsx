@@ -1,13 +1,14 @@
 // import { useState } from 'react'
 import "./App.css";
 import CCalendar from "./components/CCalendar";
+import CDatePicker from "./components/CDatePicker";
 
 function App() {
   // const [count, setCount] = useState(0)
 
   return (
     <>
-      <CCalendar
+      {/* <CCalendar
         value={[
           { date: "2023-12-17" },
           { date: "2023-12-16" },
@@ -15,7 +16,8 @@ function App() {
           { date: "2023-11-17" },
           // { date: "2023-12-20" },
         ]}
-      />
+      /> */}
+      <CDatePicker />
     </>
   );
 }
