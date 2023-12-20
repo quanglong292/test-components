@@ -1,0 +1,71 @@
+.ccalendar {
+    position: relative;
+}
+
+.ccalendar .ant-picker-calendar {
+    padding-bottom: 40px;
+}
+
+.ccalendar .footer {
+    position: absolute;
+    right: 0;
+    bottom: 8px;
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+    gap: 14px;
+    align-items: center;
+}
+
+.footer .picked-date {
+    color: black;
+}
+
+.ccalendar .ant-picker-cell-in-view.ant-picker-cell-selected .ant-picker-cell-inner, .ant-picker-cell-in-view.ant-picker-cell-range-start .ant-picker-cell-inner, .ant-picker-cell-in-view.ant-picker-cell-range-end .ant-picker-cell-inner {
+    background: orangered;
+    color: white;
+}
+
+.ccalendar .ant-picker-cell-in-view.ant-picker-cell-today .ant-picker-cell-inner::before {
+    border-color: orangered;
+    border-radius: 100%;
+}
+
+.ccalendar .ant-picker-date-panel .ant-picker-cell .ant-picker-cell-inner {
+    border-radius: 100%;
+   
+}
+
+.ccalendar .ant-picker-cell .ant-picker-cell-inner {
+    min-width: 40px;
+    height: 40px;
+    line-height: 40px;
+}
+
+.ccalendar .header-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 8px;
+}
+
+.header-wrapper .date {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    cursor: pointer;
+}
+
+.date-controller {
+    display: flex;
+    gap: 14px;
+}
+
+.header-wrapper .anticon {
+    cursor: pointer;
+}
+
+/* .header-wrapper .anticon:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+    padding: 4px;
+} */
