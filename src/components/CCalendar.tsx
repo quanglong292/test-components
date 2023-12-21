@@ -194,7 +194,10 @@ const CCalendar = (props: CCalendarProps) => {
                     )}
                   </div>
                   <Button
-                    onClick={() => handleMoveDate("back")}
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      handleMoveDate("back")
+                    }}
                     icon={
                       type === "month" ? (
                         <RetweetOutlined style={{ fontSize: 14 }} />
