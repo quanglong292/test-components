@@ -2,7 +2,7 @@ import { DatePicker } from "antd";
 import { memo, useEffect, useState } from "react";
 import CCalendar from "./CCalendar";
 import "./CDatePicker.css";
-import dayjs, { Dayjs } from "dayjs";
+import { Dayjs } from "dayjs";
 
 const matchAny = (arr1: string[], arr2 = []) => {
   return Boolean(
