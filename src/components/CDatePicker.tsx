@@ -5,8 +5,6 @@ import "./CDatePicker.css";
 import dayjs, { Dayjs } from "dayjs";
 
 const matchAny = (arr1: string[], arr2 = []) => {
-  console.log({ arr2 });
-
   return Boolean(
     arr1.findIndex((i: string) =>
       Boolean([...arr2].findIndex((j) => j === i) !== -1)
@@ -16,7 +14,7 @@ const matchAny = (arr1: string[], arr2 = []) => {
 
 const CDatePicker = memo(() => {
   const [showCalendar, setShowCalendar] = useState(false);
-  const [selectingDate, setSelectingDate] = useState<Dayjs | null>(dayjs());
+  const [selectingDate, setSelectingDate] = useState<Dayjs | null>(null);
 
   useEffect(() => {
     document.addEventListener("click", (event) => {
@@ -58,13 +56,11 @@ const CDatePicker = memo(() => {
           }}
           value={selectingDate}
           onChange={(e) => {
-            console.log({ e });
             if (!e) setSelectingDate(null);
           }}
         />
         <CCalendar
           onChange={(e) => {
-            console.log({ date: e.format("DD/MM/YYYY") });
             setSelectingDate(e);
           }}
           onOk={() => setShowCalendar(false)}

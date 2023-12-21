@@ -3,11 +3,12 @@ import dayjs from "dayjs";
 import "dayjs/locale/zh-cn";
 import { Dayjs } from "dayjs";
 import dayLocaleData from "dayjs/plugin/localeData";
-import { Button, Calendar, Select, theme } from "antd";
+import { Button, Calendar, Divider, Select, theme } from "antd";
 import "./CCalendar.css";
 import {
   CaretDownOutlined,
   LeftOutlined,
+  RetweetOutlined,
   RightOutlined,
   RollbackOutlined,
 } from "@ant-design/icons";
@@ -145,7 +146,12 @@ const CCalendar = (props: CCalendarProps) => {
               moveType === "left" ? "subtract" : "add"
             ](1, dateType);
 
-            if (moveType === "back") return onTypeChange("month");
+            if (moveType === "back") {
+              if (type === "year") onTypeChange("month");
+              else onChange(dayjs());
+
+              return;
+            }
 
             if (type === "month") onChange(moveTo);
             else {
@@ -157,16 +163,18 @@ const CCalendar = (props: CCalendarProps) => {
           };
 
           return (
-            <div style={{ padding: 8 }}>
+            <div className="header" style={{ padding: 8 }}>
+              <div className="label">{value.format("ddd, MMM YYYY")}</div>
+              <Divider style={{ margin: 8 }} />
               <section className="header-wrapper">
-                <div
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    if (type === "month") onTypeChange("year");
-                  }}
-                  className="date"
-                >
-                  <div>
+                <div className="date">
+                  <div
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      if (type === "month") onTypeChange("year");
+                    }}
+                    className="date-month-year"
+                  >
                     {type === "month" && <span>{value.format("MMM")} </span>}
                     {type === "month" ? (
                       <span>{year}</span>
@@ -181,15 +189,20 @@ const CCalendar = (props: CCalendarProps) => {
                         {options}
                       </Select>
                     )}
+                    {type === "month" && (
+                      <CaretDownOutlined style={{ fontSize: 10 }} />
+                    )}
                   </div>
-                  {type === "month" ? (
-                    <CaretDownOutlined style={{ fontSize: 10 }} />
-                  ) : (
-                    <Button
-                      onClick={() => handleMoveDate("back")}
-                      icon={<RollbackOutlined style={{ fontSize: 14 }} />}
-                    ></Button>
-                  )}
+                  <Button
+                    onClick={() => handleMoveDate("back")}
+                    icon={
+                      type === "month" ? (
+                        <RetweetOutlined style={{ fontSize: 14 }} />
+                      ) : (
+                        <RollbackOutlined style={{ fontSize: 14 }} />
+                      )
+                    }
+                  ></Button>
                 </div>
                 <div className="date-controller">
                   <Button
@@ -224,9 +237,9 @@ const CCalendar = (props: CCalendarProps) => {
         value={value || dayjs()}
       />
       <section className="footer">
-        <div className="picked-date">
+        {/* <div className="picked-date">
           {dayjs(currentDate).format("DD/MM/YYYY")}
-        </div>
+        </div> */}
         <div>
           <Button
             onClick={() => {

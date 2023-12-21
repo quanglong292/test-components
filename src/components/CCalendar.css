@@ -11,9 +11,9 @@
     right: 0;
     bottom: 8px;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: end;
     width: 100%;
-    gap: 14px;
+    padding-right: 14px;
     align-items: center;
 }
 
@@ -69,3 +69,17 @@
     background-color: rgba(0, 0, 0, 0.1);
     padding: 4px;
 } */
+
+.ccalendar .header .label {
+    font-size: 24px;
+    text-align: left;
+}
+
+.ccalendar .ant-picker-panel {
+    border-top: 0px !important;
+}
+
+.date-month-year {
+    display: flex;
+    gap: 4px
+}
