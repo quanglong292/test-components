@@ -7,14 +7,14 @@ interface DropdownOptionProps {
 }
 
 const DropdownOption = (props: DropdownOptionProps) => {
-  const { clickPosition, menu } = useContext(DropdownContext);
+  const { menu } = useContext(DropdownContext);
   const x = props?.x;
   const y = props?.y;
 
   if (!x && !y) return <></>;
 
   const style: any = {
-    position: "absolute",
+    position: "fixed",
     left: `${x}px`,
     top: `${y}px`,
     background: "black",
