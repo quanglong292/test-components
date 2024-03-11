@@ -14,11 +14,23 @@ const menu = (
         </div>
       </Menu.Item>
     </SubMenu>
+    <SubMenu title="Submenu">
+      <Menu.Item>
+        <div
+          onKeyDown={(e) => {
+            e.stopPropagation();
+          }}
+          onClick={(e) => e.stopPropagation()}
+        >
+          <input />
+        </div>
+      </Menu.Item>
+    </SubMenu>
   </Menu>
 );
 
 const DropdownComponent = () => (
-  <Dropdown overlay={menu} trigger={["click"]}>
+  <Dropdown dropdownRender={() => menu} trigger={["click"]}>
     <a className="ant-dropdown-link" onClick={(e) => e.preventDefault()}>
       Click me
     </a>
