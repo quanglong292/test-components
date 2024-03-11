@@ -1,0 +1,37 @@
+.time-picker {
+  position: relative;
+}
+
+.dropdown {
+  display: flex;
+  width: fit-content;
+  max-height: 250px;
+  /* overflow: auto; */
+  background-color: white;
+  color: black;
+  //   gap: 12px;
+  //   padding: 0 12px;
+  position: absolute;
+  left: 0;
+  top: 100%;
+  z-index: 999999999999999;
+}
+
+.hours,
+.minutes,
+.time {
+  max-height: 100%;
+  overflow: auto;
+
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+
+  div {
+    cursor: pointer;
+    padding: 4px 8px;
+
+    &:hover {
+      background-color: rgba(211, 211, 211, 0.712);
+    }
+  }
+}
