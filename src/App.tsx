@@ -1,4 +1,5 @@
 // import { useState } from 'react'
+import { useState } from "react";
 import "./App.css";
 import CCalendar from "./components/CCalendar";
 import CDatePicker from "./components/CDatePicker";
@@ -11,10 +12,18 @@ import CTimePicker from "./components/TimePicker/CTimePicker";
 
 function App() {
   // const [count, setCount] = useState(0)
+  const [timeValue, setTimeValue] = useState<string>("13:30");
 
   return (
     <>
-      <CTimePicker />
+      <CTimePicker
+        onChange={(e) => {
+          console.log({e});
+          
+          setTimeValue(e?.target?.value ?? e);
+        }}
+        value={timeValue}
+      />
       {/* <DropdownProvider>
         <div className="scroll-box">
           <CDatePicker />

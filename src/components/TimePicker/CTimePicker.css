@@ -15,7 +15,20 @@
   box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
 }
 
-.hours, .minutes, .time {
-    max-height: 100%;
-    overflow: auto;
+.hours,
+.minutes,
+.time {
+  max-height: 100%;
+  overflow: auto;
+}
+
+input[type="time"]::-webkit-calendar-picker-indicator {
+  color: rgba(0, 0, 0, 0);
+  opacity: 1;
+  display: block;
+  background: url(https://mywildalberta.ca/images/GFX-MWA-Parks-Reservations.png)
+    no-repeat;
+  width: 20px;
+  height: 20px;
+  border-width: thin;
 }
