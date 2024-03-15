@@ -1,9 +1,10 @@
 import React, { useEffect, useMemo, useState } from "react";
 import ReactDOM from "react-dom";
-import { Table } from "antd";
+import { Button, Slider, Table } from "antd";
 import { Resizable } from "react-resizable";
 import ReactDragListView from "react-drag-listview";
 import "./custom.css";
+import create from "@ant-design/icons/lib/components/IconFont";
 
 const ResizableTitle = (props) => {
   const { onResize, width, ...restProps } = props;
@@ -32,37 +33,57 @@ const ResizableTitle = (props) => {
   );
 };
 
-const defaultColumns = [
-  {
-    title: <span className="dragHandler">Key</span>,
-    dataIndex: "key",
-    render: (text) => <span>{text}</span>,
-    width: 50,
-    sorter: (a, b) => a.age - b.age,
-  },
-  {
-    title: <span className="dragHandler">Name</span>,
-    dataIndex: "name",
-    width: 200,
-  },
-  {
-    title: <span className="dragHandler">Gender</span>,
-    dataIndex: "gender",
-    width: 100,
-  },
-  {
-    title: <span className="dragHandler">Age</span>,
-    dataIndex: "age",
-    width: 100,
-  },
-  {
-    title: <span className="dragHandler">Address</span>,
-    dataIndex: "address",
-  },
-];
-
 const TableView = (props) => {
+  const defaultColumns = [
+    {
+      title: <span className="dragHandler">Key</span>,
+      dataIndex: "key",
+      render: (text) => <span>{text}</span>,
+      width: 50,
+      sorter: (a, b) => a.age - b.age,
+      onHeaderCell: (column) => ({
+        width: column.width,
+        onResize: handleResize(0),
+      }),
+    },
+    {
+      title: <span className="dragHandler">Name</span>,
+      dataIndex: "name",
+      width: 200,
+      onHeaderCell: (column) => ({
+        width: column.width,
+        onResize: handleResize(1),
+      }),
+    },
+    {
+      title: <span className="dragHandler">Gender</span>,
+      dataIndex: "gender",
+      width: 100,
+      onHeaderCell: (column) => ({
+        width: column.width,
+        onResize: handleResize(2),
+      }),
+    },
+    {
+      title: <span className="dragHandler">Age</span>,
+      dataIndex: "age",
+      width: 100,
+      onHeaderCell: (column) => ({
+        width: column.width,
+        onResize: handleResize(3),
+      }),
+    },
+    {
+      title: <span className="dragHandler">Address</span>,
+      dataIndex: "address",
+      onHeaderCell: (column) => ({
+        width: column.width,
+        onResize: handleResize(4),
+      }),
+    },
+  ];
   const [columns, setColumns] = useState(defaultColumns);
+  const [selectingColumn, setSelectingColumn] = useState(0);
 
   const data = [
     {
@@ -113,47 +134,72 @@ const TableView = (props) => {
   const handleResize =
     (index) =>
     (_, { size }) => {
+      console.log("column 2: ", columns[index].width);
+
       const nextColumns = [...columns];
       nextColumns[index] = {
         ...nextColumns[index],
         width: size.width,
       };
 
-      console.log({ columns, nextColumns });
+      console.log("column 2: ", nextColumns[index].width);
 
       setColumns(nextColumns);
     };
 
-  useEffect(() => {
-    columns.map((col, index) => ({
+  const createColumns = () => {
+    return defaultColumns.map((col, index) => ({
       ...col,
       onHeaderCell: (column) => ({
         width: column.width,
         onResize: handleResize(index),
       }),
     }));
+  };
+
+  useEffect(() => {
+    setColumns(createColumns());
   }, []);
 
   return (
-    <ReactDragListView.DragColumn
-      {...dragProps}
-      onDragEnd={(fromIndex, toIndex) => {
-        let newColumns = [...columns];
-        newColumns.splice(toIndex, 0, newColumns.splice(fromIndex, 1)[0]);
-        setColumns(newColumns);
-      }}
-    >
-      <Table
-        bordered
-        components={{
-          header: {
-            cell: ResizableTitle,
-          },
+    <>
+      <ReactDragListView.DragColumn
+        {...dragProps}
+        onDragEnd={(fromIndex, toIndex) => {
+          let newColumns = [...columns];
+          newColumns.splice(toIndex, 0, newColumns.splice(fromIndex, 1)[0]);
+          setColumns(newColumns);
         }}
-        columns={columns}
-        dataSource={data}
+      >
+        <Table
+          bordered
+          components={{
+            header: {
+              cell: ResizableTitle,
+            },
+          }}
+          columns={columns}
+          dataSource={data}
+        />
+      </ReactDragListView.DragColumn>
+      {defaultColumns.map((col, index) => (
+        <Button onClick={() => setSelectingColumn(index)}>{col.title}</Button>
+      ))}
+      <Slider
+        onChange={(e) => {
+          const index = selectingColumn;
+          const nextColumns = [...columns];
+          nextColumns[index] = {
+            ...nextColumns[index],
+            width: e + 100,
+          };
+
+          console.log("column 2: ", nextColumns[index].width);
+
+          setColumns(nextColumns);
+        }}
       />
-    </ReactDragListView.DragColumn>
+    </>
   );
 };
 
