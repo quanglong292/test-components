@@ -9,6 +9,7 @@ import DropdownOption from "./components/Dropdown/DropdownOption";
 import DropdownProvider from "./components/Dropdown/DropdownProvider";
 import DropdownComponent from "./components/DropdownV2/Dropdown";
 import CTimePicker from "./components/TimePicker/CTimePicker";
+import TableView from "./components/AdvancedTable/CTable";
 
 function App() {
   // const [count, setCount] = useState(0)
@@ -16,14 +17,15 @@ function App() {
 
   return (
     <>
-      <CTimePicker
+      <TableView />
+      {/* <CTimePicker
         onChange={(e) => {
           console.log({e});
           
           setTimeValue(e?.target?.value ?? e);
         }}
         value={timeValue}
-      />
+      /> */}
       {/* <DropdownProvider>
         <div className="scroll-box">
           <CDatePicker />
