@@ -1,12 +1,21 @@
-import React, { useEffect, useMemo, useState } from "react";
-import ReactDOM from "react-dom";
-import { Button, Slider, Table } from "antd";
+import { useEffect, useState } from "react";
+import { Button, type TableColumnsType, type TableProps } from "antd";
 import { Resizable } from "react-resizable";
 import ReactDragListView from "react-drag-listview";
 import "./custom.css";
-import create from "@ant-design/icons/lib/components/IconFont";
+import RowDragTable from "./RowDragTable";
+import { PlusCircleOutlined, SearchOutlined } from "@ant-design/icons";
 
-const ResizableTitle = (props) => {
+interface CTableProps extends TableProps<any> {
+  onColumnOrderChange?: (columns: any) => void;
+  onDataSourceChange?: (dataSource: any) => void;
+  onClickAdd?: () => void;
+}
+
+interface CTableColumnsType extends TableColumnsType<any> {}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const ResizableTitle = (props: any) => {
   const { onResize, width, ...restProps } = props;
 
   if (!width) {
@@ -33,8 +42,8 @@ const ResizableTitle = (props) => {
   );
 };
 
-const TableView = (props) => {
-  const defaultColumns = [
+const TableView = (props: CTableProps) => {
+  const defaultColumns: any = [
     {
       title: <span className="dragHandler">Key</span>,
       dataIndex: "key",
@@ -82,54 +91,19 @@ const TableView = (props) => {
       }),
     },
   ];
-  const [columns, setColumns] = useState(defaultColumns);
-  const [selectingColumn, setSelectingColumn] = useState(0);
-
-  const data = [
+  const columns = [
+    ...(props?.columns?.map((i) => ({
+      ...i,
+      title: <span className="dragHandler">{i.title ?? ""}</span>,
+    })) || []),
     {
-      key: "1",
-      name: "Boran",
-      gender: "male",
-      age: "12",
-      address: "New York",
-    },
-    {
-      key: "2",
-      name: "JayChou",
-      gender: "male",
-      age: "38",
-      address: "TaiWan",
-    },
-    {
-      key: "3",
-      name: "Lee",
-      gender: "female",
-      age: "22",
-      address: "BeiJing",
-    },
-    {
-      key: "4",
-      name: "ChouTan",
-      gender: "male",
-      age: "31",
-      address: "HangZhou",
-    },
-    {
-      key: "5",
-      name: "AiTing",
-      gender: "female",
-      age: "22",
-      address: "Xi’An",
+      key: "sort",
     },
   ];
-
-  const dragProps = useMemo(() => {
-    return {
-      nodeSelector: "th",
-      handleSelector: ".dragHandler",
-      ignoreSelector: "react-resizable-handle",
-    };
-  }, [data, columns]);
+  // const [columns, setColumns] = useState<CTableColumnsType>(
+  //   props?.columns || []
+  // );
+  const [selectingColumn, setSelectingColumn] = useState(0);
 
   const handleResize =
     (index) =>
@@ -144,7 +118,7 @@ const TableView = (props) => {
 
       console.log("column 2: ", nextColumns[index].width);
 
-      setColumns(nextColumns);
+      // setColumns(nextColumns);
     };
 
   const createColumns = () => {
@@ -158,31 +132,50 @@ const TableView = (props) => {
   };
 
   useEffect(() => {
-    setColumns(createColumns());
+    // setColumns(createColumns());
   }, []);
 
   return (
     <>
       <ReactDragListView.DragColumn
-        {...dragProps}
+        // {...dragProps}
+        nodeSelector="th"
+        handleSelector=".dragHandler"
+        ignoreSelector="react-resizable-handle"
         onDragEnd={(fromIndex, toIndex) => {
-          let newColumns = [...columns];
+          if (props?.expandable) {
+            fromIndex -= 1;
+            toIndex -= 1;
+          }
+
+          const newColumns = [...(props?.columns ?? [])];
           newColumns.splice(toIndex, 0, newColumns.splice(fromIndex, 1)[0]);
-          setColumns(newColumns);
+
+          props?.onColumnOrderChange?.(newColumns);
         }}
       >
-        <Table
-          bordered
-          components={{
-            header: {
-              cell: ResizableTitle,
-            },
-          }}
+        <RowDragTable
+          {...props}
           columns={columns}
-          dataSource={data}
+          pagination={false}
+          // bordered
+          // components={{
+          //   header: {
+          //     cell: ResizableTitle,
+          //   },
+          // }}
+          // columns={columns}
+          // dataSource={data}
         />
       </ReactDragListView.DragColumn>
-      {defaultColumns.map((col, index) => (
+      <div className="footer">
+        <Button
+          onClick={props?.onClickAdd}
+          className="add-btn"
+          icon={<PlusCircleOutlined />}
+        />
+      </div>
+      {/* {dezfaultColumns.map((col, index) => (
         <Button onClick={() => setSelectingColumn(index)}>{col.title}</Button>
       ))}
       <Slider
@@ -198,7 +191,8 @@ const TableView = (props) => {
 
           setColumns(nextColumns);
         }}
-      />
+      /> */}
+      {/* <RowDragTable /> */}
     </>
   );
 };

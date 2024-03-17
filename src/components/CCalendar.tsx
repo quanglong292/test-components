@@ -36,8 +36,6 @@ const CCalendar = (props: CCalendarProps) => {
     onCancel,
   } = props;
 
-  if (!open) return <></>;
-
   const { token } = theme.useToken();
   const [currentDate, setCurrentDate] = useState<Dayjs>(dayjs());
   const [calendarType, setCalendarType] = useState<"month" | "year">("month");
@@ -102,6 +100,8 @@ const CCalendar = (props: CCalendarProps) => {
   useLayoutEffect(() => {
     handleSelectDate(values, currentDate);
   }, [currentDate, values]);
+
+  if (!open) return <></>;
 
   return (
     <div id="ccalendar" className="ccalendar" style={wrapperStyle}>
@@ -195,8 +195,8 @@ const CCalendar = (props: CCalendarProps) => {
                   </div>
                   <Button
                     onClick={(e) => {
-                      e.stopPropagation()
-                      handleMoveDate("back")
+                      e.stopPropagation();
+                      handleMoveDate("back");
                     }}
                     icon={
                       type === "month" ? (

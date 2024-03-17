@@ -13,6 +13,7 @@ const DropdownOption = (props: DropdownOptionProps) => {
 
   if (!x && !y) return <></>;
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const style: any = {
     position: "fixed",
     left: `${x}px`,

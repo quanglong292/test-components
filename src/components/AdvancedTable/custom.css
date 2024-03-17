@@ -17,3 +17,9 @@
   cursor: move;
   background-color: #ccc;
 }
+
+.footer {
+  display: flex;
+  justify-content: start;
+  padding: 12px 0;
+}

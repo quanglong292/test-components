@@ -24,17 +24,15 @@ const CDatePicker = memo(() => {
         "ant-picker-focused",
         "ant-picker-input",
         "ant-picker-cell",
-        "ant-picker-cell-in-view"
+        "ant-picker-cell-in-view",
       ];
       // @ts-ignore
       const elementClasses = event.target.classList || [];
       // @ts-ignore
-      const isClickedOutSide = !Boolean(event.target.closest("#ccalendar"));
+      const isClickedOutSide = !event.target.closest("#ccalendar");
       const validClicks = matchAny(validElements, elementClasses);
-      const isClickedOutSideInput = !Boolean(
-        // @ts-ignore
-        event.target.closest("#cdate-picker")
-      );
+      // @ts-ignore
+      const isClickedOutSideInput = !event.target.closest("#cdate-picker");
 
       if (isClickedOutSide && isClickedOutSideInput && !validClicks)
         setShowCalendar(false);
