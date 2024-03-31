@@ -13,7 +13,7 @@ import {
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import React from "react";
+import React, { useEffect } from "react";
 import { Table } from "antd";
 import type { ColumnsType, TableProps } from "antd/es/table";
 import { MenuOutlined } from "@ant-design/icons";
@@ -79,6 +79,12 @@ const RowDragTable = (props: CRowDragTable) => {
       });
     }
   };
+
+  useEffect(() => {
+    console.log({ columns: props?.columns });
+
+    return () => {};
+  }, [props?.columns]);
 
   return (
     <DndContext modifiers={[restrictToVerticalAxis]} onDragEnd={onDragEnd}>

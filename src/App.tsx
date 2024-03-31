@@ -1,5 +1,6 @@
 // import { useState } from 'react'
 // import { useState } from "react";
+// import { useEffect, useState } from "react";
 import "./App.css";
 // import CCalendar from "./components/CCalendar";
 // import CDatePicker from "./components/CDatePicker";
@@ -10,7 +11,9 @@ import "./App.css";
 // import DropdownComponent from "./components/DropdownV2/Dropdown";
 // import CTimePicker from "./components/TimePicker/CTimePicker";
 // import TableView from "./components/AdvancedTable/CTable";
-import NestedTable from "./components/AdvancedTable/NestedTable";
+import AdvancedTable from "./components/AdvancedTable/AdvancedTable";
+import EditableCellTable from "./components/AdvancedTable/EditableCellTable";
+
 // import RowDragTable2 from "./components/AdvancedTable/RowDragTable2";
 
 function App() {
@@ -19,7 +22,9 @@ function App() {
 
   return (
     <>
-      <NestedTable /> 
+      <AdvancedTable />
+      <EditableCellTable />
+
       {/* <RowDragTable2 /> */}
       {/* <CTimePicker
         onChange={(e) => {

@@ -7,6 +7,9 @@ import RowDragTable from "./RowDragTable";
 import { PlusCircleOutlined, SearchOutlined } from "@ant-design/icons";
 
 interface CTableProps extends TableProps<any> {
+  customComponents?: {
+    addColumn?: React.ReactNode;
+  };
   onColumnOrderChange?: (columns: any) => void;
   onDataSourceChange?: (dataSource: any) => void;
   onClickAdd?: () => void;
@@ -91,7 +94,7 @@ const TableView = (props: CTableProps) => {
       }),
     },
   ];
-  const columns = [
+  let columns: any = [
     ...(props?.columns?.map((i) => ({
       ...i,
       title: <span className="dragHandler">{i.title ?? ""}</span>,
@@ -100,13 +103,16 @@ const TableView = (props: CTableProps) => {
       key: "sort",
     },
   ];
+  if (props?.customComponents?.addColumn) {
+    // TO-DO: Add a new column to the columns array
+  }
   // const [columns, setColumns] = useState<CTableColumnsType>(
   //   props?.columns || []
   // );
   const [selectingColumn, setSelectingColumn] = useState(0);
 
   const handleResize =
-    (index) =>
+    (index: any) =>
     (_, { size }) => {
       console.log("column 2: ", columns[index].width);
 
@@ -137,37 +143,51 @@ const TableView = (props: CTableProps) => {
 
   return (
     <>
-      <ReactDragListView.DragColumn
-        // {...dragProps}
-        nodeSelector="th"
-        handleSelector=".dragHandler"
-        ignoreSelector="react-resizable-handle"
-        onDragEnd={(fromIndex, toIndex) => {
-          if (props?.expandable) {
-            fromIndex -= 1;
-            toIndex -= 1;
-          }
+      <div className="table-container">
+        <ReactDragListView.DragColumn
+          // {...dragProps}
+          nodeSelector="th"
+          handleSelector=".dragHandler"
+          ignoreSelector="react-resizable-handle"
+          onDragEnd={(fromIndex, toIndex) => {
+            if (props?.expandable) {
+              fromIndex -= 1;
+              toIndex -= 1;
+            }
 
-          const newColumns = [...(props?.columns ?? [])];
-          newColumns.splice(toIndex, 0, newColumns.splice(fromIndex, 1)[0]);
+            const currentFrom = columns[fromIndex];
 
-          props?.onColumnOrderChange?.(newColumns);
-        }}
-      >
-        <RowDragTable
-          {...props}
-          columns={columns}
-          pagination={false}
-          // bordered
-          // components={{
-          //   header: {
-          //     cell: ResizableTitle,
-          //   },
-          // }}
-          // columns={columns}
-          // dataSource={data}
-        />
-      </ReactDragListView.DragColumn>
+            if (currentFrom.fixed) return;
+
+            const newColumns = [...(props?.columns ?? [])];
+            newColumns.splice(toIndex, 0, newColumns.splice(fromIndex, 1)[0]);
+
+            props?.onColumnOrderChange?.(newColumns);
+          }}
+        >
+          <RowDragTable
+            {...props}
+            columns={columns}
+            pagination={false}
+            // bordered
+            // components={{
+            //   header: {
+            //     cell: ResizableTitle,
+            //   },
+            // }}
+            // columns={columns}
+            // dataSource={data}
+          />
+        </ReactDragListView.DragColumn>
+        {/* {props?.} */}
+        <div className="">
+          <Button
+            onClick={props?.onClickAdd}
+            className="add-btn"
+            icon={<PlusCircleOutlined />}
+          />
+        </div>
+      </div>
       <div className="footer">
         <Button
           onClick={props?.onClickAdd}
