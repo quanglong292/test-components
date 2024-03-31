@@ -114,18 +114,6 @@ const AdvancedTable: React.FC = () => {
       key: "createdAt",
     },
     {
-      title: "Date",
-      width: 300,
-      dataIndex: "createdAt",
-      key: "createdAt",
-    },
-    {
-      title: "Date",
-      width: 300,
-      dataIndex: "createdAt",
-      key: "createdAt",
-    },
-    {
       title: "Action",
       width: 300,
       key: "operation",

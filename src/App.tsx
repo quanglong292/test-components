@@ -12,7 +12,7 @@ import "./App.css";
 // import CTimePicker from "./components/TimePicker/CTimePicker";
 // import TableView from "./components/AdvancedTable/CTable";
 import AdvancedTable from "./components/AdvancedTable/AdvancedTable";
-import EditableCellTable from "./components/AdvancedTable/EditableCellTable";
+// import EditableCellTable from "./components/AdvancedTable/EditableCellTable";
 
 // import RowDragTable2 from "./components/AdvancedTable/RowDragTable2";
 
@@ -23,7 +23,7 @@ function App() {
   return (
     <>
       <AdvancedTable />
-      <EditableCellTable />
+      {/* <EditableCellTable /> */}
 
       {/* <RowDragTable2 /> */}
       {/* <CTimePicker
