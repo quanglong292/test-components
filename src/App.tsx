@@ -2,6 +2,7 @@
 // import { useState } from "react";
 // import { useEffect, useState } from "react";
 import "./App.css";
+import TaskListDetails from "./projects/DA/TaskListV2/TaskListDetails";
 // import CCalendar from "./components/CCalendar";
 // import CDatePicker from "./components/CDatePicker";
 // import CustomDropdown from "./components/Dropdown/Dropdown";
@@ -11,7 +12,7 @@ import "./App.css";
 // import DropdownComponent from "./components/DropdownV2/Dropdown";
 // import CTimePicker from "./components/TimePicker/CTimePicker";
 // import TableView from "./components/AdvancedTable/CTable";
-import AdvancedTable from "./components/AdvancedTable/AdvancedTable";
+// import AdvancedTable from "./components/AdvancedTable/AdvancedTable";
 // import EditableCellTable from "./components/AdvancedTable/EditableCellTable";
 
 // import RowDragTable2 from "./components/AdvancedTable/RowDragTable2";
@@ -22,7 +23,8 @@ function App() {
 
   return (
     <>
-      <AdvancedTable />
+      <TaskListDetails />
+      {/* <AdvancedTable /> */}
       {/* <EditableCellTable /> */}
 
       {/* <RowDragTable2 /> */}
