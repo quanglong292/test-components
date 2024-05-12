@@ -77,45 +77,45 @@ const AdvancedTable: React.FC = () => {
   const [columns, setColumns] = useState<TableColumnsType<DataType>>([
     {
       title: "Name",
-      width: 300,
+      width: "auto",
       dataIndex: "name",
       key: "name",
       fixed: true,
     },
     {
       title: "Platform",
-      width: 300,
+      width: "auto",
       dataIndex: "platform",
       key: "platform",
       fixed: true,
     },
     {
       title: "Version",
-      width: 300,
+      width: "auto",
       dataIndex: "version",
       key: "version",
     },
     {
       title: "Upgraded",
-      width: 300,
+      width: "auto",
       dataIndex: "upgradeNum",
       key: "upgradeNum",
     },
     {
       title: "Creator",
-      width: 300,
+      width: "auto",
       dataIndex: "creator",
       key: "creator",
     },
     {
       title: "Date",
-      width: 300,
+      width: "auto",
       dataIndex: "createdAt",
       key: "createdAt",
     },
     {
       title: "Action",
-      width: 300,
+      width: "auto",
       key: "operation",
       render: () => <a>Publish</a>,
     },
@@ -143,15 +143,7 @@ const AdvancedTable: React.FC = () => {
   }
 
   const [dataSource, setDataSource] = useState<DataType[]>(data);
-
-  console.log({
-    checkedList,
-    columns: columns.map((item) => ({
-      ...item,
-      hidden: !checkedList.includes(item.key as string),
-    })),
-  });
-
+  
   useEffect(() => {
     setColumns(columns.map((i, index) => ({ ...i, columnIndex: index })));
   }, []);

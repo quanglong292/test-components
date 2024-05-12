@@ -2,7 +2,6 @@
 // import { useState } from "react";
 // import { useEffect, useState } from "react";
 import "./App.css";
-import TaskListDetails from "./projects/DA/TaskListV2/TaskListDetails";
 // import CCalendar from "./components/CCalendar";
 // import CDatePicker from "./components/CDatePicker";
 // import CustomDropdown from "./components/Dropdown/Dropdown";
@@ -12,7 +11,7 @@ import TaskListDetails from "./projects/DA/TaskListV2/TaskListDetails";
 // import DropdownComponent from "./components/DropdownV2/Dropdown";
 // import CTimePicker from "./components/TimePicker/CTimePicker";
 // import TableView from "./components/AdvancedTable/CTable";
-// import AdvancedTable from "./components/AdvancedTable/AdvancedTable";
+import FixedHeaderTable from "./components/AdvancedTable/FixedHeaderTable";
 // import EditableCellTable from "./components/AdvancedTable/EditableCellTable";
 
 // import RowDragTable2 from "./components/AdvancedTable/RowDragTable2";
@@ -23,10 +22,16 @@ function App() {
 
   return (
     <>
-      <TaskListDetails />
-      {/* <AdvancedTable /> */}
+      {/* <NestedTable
+        sectionToggleState={"expanded"}
+        socket={{}}
+        taskDetails={taskListDetails}
+        setTaskListDetails={setTaskListDetails}
+        handleAddEditCustomField={async (p1, p2) => {}}
+      /> */}
       {/* <EditableCellTable /> */}
-
+      {/* <AdvancedTable /> */}
+      <FixedHeaderTable />
       {/* <RowDragTable2 /> */}
       {/* <CTimePicker
         onChange={(e) => {
