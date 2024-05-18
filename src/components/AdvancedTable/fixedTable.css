@@ -3,7 +3,8 @@
 }
 
 .fixed-table .table-section {
-  width: 85%;
+  max-width: 85%;
+  height: 500px;
   display: flex;
   align-items: flex-start;
   justify-content: space-between;

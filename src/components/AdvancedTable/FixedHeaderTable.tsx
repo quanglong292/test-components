@@ -32,11 +32,11 @@ const FixedHeaderTable: React.FC = () => {
 
   return (
     <div className="fixed-table">
-      <div className="table-section">
+      <div className="table-section" style={{ width: columns.length * 200 }}>
         <Table
           columns={columns}
           dataSource={dataSource}
-          scroll={{ y: 300, x: columns.length * 150 }}
+          scroll={{ y: 500, x: columns.length * 150 }}
           pagination={false}
         />
         <div className="add-column-section">
