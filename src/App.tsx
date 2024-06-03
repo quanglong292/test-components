@@ -1,6 +1,7 @@
 // import { useState } from 'react'
 // import { useState } from "react";
 // import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import "./App.css";
 import D3Components from "./projects/D3";
 // import CCalendar from "./components/CCalendar";
@@ -18,9 +19,15 @@ import D3Components from "./projects/D3";
 // import RowDragTable2 from "./components/AdvancedTable/RowDragTable2";
 
 function App() {
-  return (
-    <D3Components />
-  )
+  const handleFetch = async () => {
+    const response = await fetch("https://api.github.com/users");
+    const data = await response.json();
+    console.log(data);
+  };
+  useEffect(() => {
+    handleFetch();
+  }, []);
+  return <D3Components />;
 }
 
 export default App;
